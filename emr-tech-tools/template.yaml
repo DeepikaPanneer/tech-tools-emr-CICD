@@ -97,7 +97,7 @@ Resources:
   BootstrapActions:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: tech-tools-bootstrap-actions
+      BucketName: tech-tools-bootstrap-actions-emr
       VersioningConfiguration:
         Status: Enabled
 
