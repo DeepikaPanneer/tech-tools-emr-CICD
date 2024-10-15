@@ -93,6 +93,13 @@ Resources:
   # S3 Bucket definition (already present)
   emrLambdaTrigger:
     Type: AWS::S3::Bucket
+  
+  BootstrapActions:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: tech-tools-bootstrap-actions
+      VersioningConfiguration:
+        Status: Enabled
 
 Outputs:
   EMRSpinUp:
@@ -123,3 +130,7 @@ Outputs:
   EMRRemainderIamRole:
     Description: "Implicit IAM Role created for EMRRemainder function"
     Value: !GetAtt EMRRemainderRole.Arn
+
+  BootstrapActionsName:
+    Description: "Name of the new S3 bucket"
+    Value: !Ref BootstrapActions
