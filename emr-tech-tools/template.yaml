@@ -10,6 +10,18 @@ Globals:
     Timeout: 10
     MemorySize: 128
 
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+    Description: "The stage of deployment (dev or prod)"
+
+Conditions:
+  IsDev: !Equals [!Ref Stage, dev]
+
 Resources:
   # Existing EMRSpinUp Lambda function
   EMRSpinUp:
@@ -90,9 +102,14 @@ Resources:
             ScheduleExpression: rate(1 hour)
             Input: '{"hello": "simple"}'
 
-  # S3 Bucket definition (already present)
   emrLambdaTrigger:
     Type: AWS::S3::Bucket
+
+  emrLambdaTrigger:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: tech-tools-bootstrap-scripts
+    Condition: IsDev
 
 Outputs:
   EMRSpinUp:
