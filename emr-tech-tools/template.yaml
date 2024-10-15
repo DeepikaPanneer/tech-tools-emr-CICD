@@ -105,7 +105,7 @@ Resources:
   emrLambdaTrigger:
     Type: AWS::S3::Bucket
 
-  emrLambdaTrigger:
+  bootstrapActions:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: tech-tools-bootstrap-scripts
