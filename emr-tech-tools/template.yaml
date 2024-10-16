@@ -95,7 +95,7 @@ Resources:
 
   bootstrapActionsEMR:
     Type: AWS::S3::Bucket
-    properties:
+    Properties:
       Policies:
       - Statement:
           - Sid: s3PutObjectPolicy
