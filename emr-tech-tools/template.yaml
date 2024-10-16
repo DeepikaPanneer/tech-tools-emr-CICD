@@ -99,6 +99,7 @@ Resources:
   S3PutObjectPolicy:
     Type: AWS::IAM::Policy
     Properties:
+      PolicyName: s3PutObjectPolicy
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
