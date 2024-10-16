@@ -93,7 +93,7 @@ Resources:
   emrLambdaTrigger:
     Type: AWS::S3::Bucket
 
-  bootstrapActions:
+  bootstrapActionsEMR:
     Type: AWS::S3::Bucket
     properties:
       Policies:
