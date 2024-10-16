@@ -95,6 +95,14 @@ Resources:
 
   bootstrapActions:
     Type: AWS::S3::Bucket
+    properties:
+      Policies:
+      - Statement:
+          - Sid: s3PutObjectPolicy
+            Effect: Allow
+            Action:
+            - "s3:PutObject"
+            Resource: '*'
 
 Outputs:
   EMRSpinUp:
