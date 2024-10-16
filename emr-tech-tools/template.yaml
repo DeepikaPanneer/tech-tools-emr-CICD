@@ -93,16 +93,20 @@ Resources:
   emrLambdaTrigger:
     Type: AWS::S3::Bucket
 
-  bootstrapActionsEMR:
+  bootstrapActions:
     Type: AWS::S3::Bucket
+
+  S3PutObjectPolicy:
+    Type: AWS::IAM::Policy
     Properties:
-      Policies:
-      - Statement:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
           - Sid: s3PutObjectPolicy
             Effect: Allow
             Action:
-            - "s3:PutObject"
-            Resource: '*'
+              - "s3:PutObject"
+            Resource: !Sub '${bootstrapActions.Arn}/*'
 
 Outputs:
   EMRSpinUp:
