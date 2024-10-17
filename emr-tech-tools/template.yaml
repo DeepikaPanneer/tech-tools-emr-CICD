@@ -2,7 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
   emr-tech-tools
-
   Sample SAM Template for emr-tech-tools
 
 Globals:
@@ -92,38 +91,6 @@ Resources:
 
   emrLambdaTrigger:
     Type: AWS::S3::Bucket
-
-  bootstrapActions:
-    Type: AWS::S3::Bucket
-
-  S3PutObjectRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: S3PutObjectRole
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - s3.amazonaws.com
-            Action:
-              - "sts:AssumeRole"
-
-  S3PutObjectPolicy:
-    Type: AWS::IAM::Policy
-    Properties:
-      PolicyName: s3PutObjectPolicy
-      Roles: 
-        - !Ref S3PutObjectRole
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Sid: s3PutObjectPolicy
-            Effect: Allow
-            Action:
-              - "s3:PutObject"
-            Resource: !Sub '${bootstrapActions.Arn}/*'
 
 Outputs:
   EMRSpinUp:
