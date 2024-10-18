@@ -101,6 +101,7 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "bootstrap-actions-emr-${Stage}"
+      
 
   # IAM Role modification for S3 PutObject permission
   BootstrapActionsRole:
