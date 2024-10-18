@@ -4,6 +4,11 @@ Description: >
   emr-tech-tools
   Sample SAM Template for emr-tech-tools
 
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+
 Globals:
   Function:
     Timeout: 10
