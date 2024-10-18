@@ -100,7 +100,7 @@ Resources:
   BootstrapActionsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "bootstrap-actions-${Stage}"
+      BucketName: !Sub "bootstrap-actions-emr-${Stage}"
 
   # IAM Role modification for S3 PutObject permission
   BootstrapActionsRole:
@@ -120,7 +120,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:PutObject
-                Resource: !Sub "arn:aws:s3:::bootstrap-actions-${Stage}/*"
+                Resource: !Sub "arn:aws:s3:::bootstrap-actions-emr-${Stage}/*"
 
 Outputs:
   EMRSpinUp:
