@@ -8,9 +8,6 @@ Parameters:
   Stage:
     Type: String
     Default: dev
-    AllowedValues:
-      - dev
-      - prod
 
 Globals:
   Function:
@@ -103,7 +100,7 @@ Resources:
   BootstrapActionsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "bootstrap-actions-emr-${Stage}"
+      BucketName: !Sub "bootstrap-actions-emr-1-${Stage}"
 
 
   # IAM Role modification for S3 PutObject permission
@@ -124,7 +121,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:PutObject
-                Resource: !Sub "arn:aws:s3:::bootstrap-actions-emr-${Stage}/*"
+                Resource: !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
 
 Outputs:
   EMRSpinUp:
