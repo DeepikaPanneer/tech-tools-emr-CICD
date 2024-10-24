@@ -115,9 +115,8 @@ Resources:
             - "s3:PutObject"
           Resource: 
             - !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
-          Principal:
-            AWS: !Sub "arn:aws:iam::${AWS::AccountId}:role/PipelineRole" 
-
+          Principal: "*"
+          
   # # IAM Role modification for S3 PutObject permission
   # BootstrapActionsRole:
   #   Type: AWS::IAM::Role
