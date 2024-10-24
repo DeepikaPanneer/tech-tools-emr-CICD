@@ -102,21 +102,23 @@ Resources:
     Properties:
       BucketName: !Sub "bootstrap-actions-emr-1-${Stage}"
 
-  BootstrapActionsBucketPolicy: 
-  Type: AWS::S3::BucketPolicy
-  Properties:
-    Bucket: !Ref BootstrapActionsBucket
-    PolicyDocument:
-      Version: "2012-10-17"
-      Statement: 
-        - Effect: Allow
-          Action: 
-            - "s3:GetObject"
-            - "s3:PutObject"
-          Resource: 
-            - !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
-          Principal: "*"
-          
+  BootstrapActionsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref BootstrapActionsBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - "s3:GetObject"
+              - "s3:PutObject"
+            Resource: 
+              - !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
+            Principal: 
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+
+
   # # IAM Role modification for S3 PutObject permission
   # BootstrapActionsRole:
   #   Type: AWS::IAM::Role
