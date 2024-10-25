@@ -154,7 +154,7 @@ Resources:
             Resource: 
               - !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
             Principal:
-              AWS: !Ref PipelineExecutionRole
+              AWS: !Sub ${PipelineExecutionRole}
 
 Outputs:
   EMRSpinUp:

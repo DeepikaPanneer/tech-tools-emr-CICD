@@ -198,7 +198,7 @@ jobs:
             --s3-bucket ${TESTING_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE} \
-            --parameter-overrides Stage=dev PipelineExecutionRole=${TESTING_PIPELINE_EXECUTION_ROLE},${PROD_PIPELINE_EXECUTION_ROLE}
+            --parameter-overrides Stage=dev PipelineExecutionRole=${TESTING_PIPELINE_EXECUTION_ROLE}
 
       - name: Upload file to S3
         run: |
@@ -249,7 +249,7 @@ jobs:
             --s3-bucket ${PROD_ARTIFACTS_BUCKET} \
             --no-fail-on-empty-changeset \
             --role-arn ${PROD_CLOUDFORMATION_EXECUTION_ROLE} \
-            --parameter-overrides Stage=prod PipelineExecutionRole=${TESTING_PIPELINE_EXECUTION_ROLE},${PROD_PIPELINE_EXECUTION_ROLE}
+            --parameter-overrides Stage=prod PipelineExecutionRole=${PROD_PIPELINE_EXECUTION_ROLE}
 
       - name: Upload file to S3
         run: |
