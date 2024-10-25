@@ -16,6 +16,36 @@ Globals:
 
 Resources:
   # Existing EMRSpinUp Lambda function
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "emr-lambda-execution-role-${Stage}" 
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: [lambda.amazonaws.com]
+          Action: 
+            - sts:AssumeRole
+      Path: /
+      Policies: 
+        - PolicyName: S3FullAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: s3:*
+                Resource: '*'
+        - PolicyName: EMRFullAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 'elasticmapreduce:*'
+                Resource: '*'
+
   EMRSpinUp:
     Type: AWS::Serverless::Function
     Properties:
@@ -97,35 +127,6 @@ Resources:
           Properties:
             ScheduleExpression: rate(1 hour)
             Input: '{"hello": "simple"}'
-
-  LambdaExecutionRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: !Sub "emr-lambda-execution-role-${Stage}" 
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-        - Effect: Allow
-          Principal:
-            Service: [lambda.amazonaws.com]
-          Action: 
-            - sts:AssumeRole
-      Path: /
-      Policies: 
-        - PolicyName: S3FullAccessPolicy
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: s3:*
-                Resource: '*'
-        - PolicyName: EMRFullAccessPolicy
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action: 'elasticmapreduce:*'
-                Resource: '*'
 
   emrLambdaTrigger:
     Type: AWS::S3::Bucket
