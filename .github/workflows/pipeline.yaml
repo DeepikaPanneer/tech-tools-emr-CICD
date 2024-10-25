@@ -200,6 +200,10 @@ jobs:
             --role-arn ${TESTING_CLOUDFORMATION_EXECUTION_ROLE} \
             --parameter-overrides Stage=dev
 
+      - name: Upload file to S3
+        run: |
+          aws s3 cp emr-tech-tools/emr/bootstrapActions/bootstrap_scripts.sh s3://bootstrap-actions-emr-1-dev/emr/
+          
   integration-test:
     if: github.ref == 'refs/heads/main'
     needs: [deploy-testing]
@@ -246,3 +250,7 @@ jobs:
             --no-fail-on-empty-changeset \
             --role-arn ${PROD_CLOUDFORMATION_EXECUTION_ROLE} \
             --parameter-overrides Stage=prod
+
+      - name: Upload file to S3
+        run: |
+          aws s3 cp emr-tech-tools/emr/bootstrapActions/bootstrap_scripts.sh s3://bootstrap-actions-emr-1-prod/emr/
