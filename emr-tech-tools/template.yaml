@@ -8,6 +8,8 @@ Parameters:
   Stage:
     Type: String
     Default: dev
+  PipelineExecutionRole:
+    Type: String
 
 Globals:
   Function:
@@ -152,8 +154,7 @@ Resources:
             Resource: 
               - !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
             Principal:
-              AWS: "arn:aws:iam::286128020352:user/aws-sam-cli-managed-dev-pipeline-resou-PipelineUser-anywGpPvADcw"
-
+              AWS: !Ref PipelineExecutionRole
 
 Outputs:
   EMRSpinUp:
