@@ -159,28 +159,16 @@ Outputs:
   EMRSpinUp:
     Description: "EMRSpinUp Lambda Function ARN"
     Value: !GetAtt EMRSpinUp.Arn
-  EMRSpinUpIamRole:
-    Description: "Implicit IAM Role created for EMRSpinUp function"
-    Value: !GetAtt EMRSpinUpRole.Arn
 
   # Outputs for the new functions
   EMRNotify:
     Description: "EMRNotify Lambda Function ARN"
     Value: !GetAtt EMRNotify.Arn
-  EMRNotifyIamRole:
-    Description: "Implicit IAM Role created for EMRNotify function"
-    Value: !GetAtt EMRNotifyRole.Arn
 
   EMRTerminate:
     Description: "EMRTerminate Lambda Function ARN"
     Value: !GetAtt EMRTerminate.Arn
-  EMRTerminateIamRole:
-    Description: "Implicit IAM Role created for EMRTerminate function"
-    Value: !GetAtt EMRTerminateRole.Arn
 
   EMRRemainder:
     Description: "EMRRemainder Lambda Function ARN"
     Value: !GetAtt EMRRemainder.Arn
-  EMRRemainderIamRole:
-    Description: "Implicit IAM Role created for EMRRemainder function"
-    Value: !GetAtt EMRRemainderRole.Arn
