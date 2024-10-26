@@ -69,6 +69,7 @@ Resources:
   EMRSpinUp:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: emr-spinup-${Stage}
       CodeUri: emr/EMRSpinUp
       Handler: EMRSpinUp.lambda_handler
       Runtime: python3.9
@@ -91,6 +92,7 @@ Resources:
   EMRNotify:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: emr-notify-${Stage}
       CodeUri: emr/EMRNotify
       Handler: EMRNotify.lambda_handler
       Runtime: python3.9
@@ -113,6 +115,7 @@ Resources:
   EMRTerminate:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: emr-terminate-${Stage}
       CodeUri: emr/EMRTerminate
       Handler: EMRTerminate.lambda_handler
       Runtime: python3.9
@@ -135,6 +138,7 @@ Resources:
   EMRRemainder:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: emr-reminder-${Stage}
       CodeUri: emr/EMRRemainder
       Handler: EMRRemainder.lambda_handler
       Runtime: python3.9
@@ -145,7 +149,7 @@ Resources:
         Schedule:
           Type: ScheduleV2
           Properties:
-            ScheduleExpression: rate(1 hour)
+            ScheduleExpression: cron(0 0 1 * ? *)
             Input: '{"hello": "simple"}'
 
   emrLambdaTrigger:
