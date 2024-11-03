@@ -139,11 +139,10 @@ Resources:
             FunctionName: !Ref EMRRemainder
       
       Events:
-        MonthlyTrigger:
-          Type: EventBridgeRule
+        Schedule:
+          Type: ScheduleV2
           Properties:
-            Name: !Sub "emr-monthly-trigger-${Stage}"  # Sets the name of the EventBridge rule
-            Schedule: 'cron(0 0 1 * ? *)'              # Runs at midnight on the 1st of every month
+            ScheduleExpression: cron(0 0 1 * ? *)      # Runs at midnight on the 1st of every month
             Input: '{"TYPE": "remainder"}'
 
   BootstrapActionsBucket:
