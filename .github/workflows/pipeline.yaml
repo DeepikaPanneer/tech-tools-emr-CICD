@@ -282,8 +282,8 @@ jobs:
       - name: Configure staging application
         if: ${{ env.BRANCH_NAME == 'dev' }}
         run: |
-          echo "STAGE=stg" >> $GITHUB_ENV
-          echo "STACK_NAME=${STACK_NAME}-stg" >> $GITHUB_ENV
+          echo "STAGE=dev" >> $GITHUB_ENV
+          echo "STACK_NAME=${STACK_NAME}-dev" >> $GITHUB_ENV
       # Specify production stack and stage names 
       - name: Configure production application
         if: ${{ env.BRANCH_NAME == 'prod' }}
