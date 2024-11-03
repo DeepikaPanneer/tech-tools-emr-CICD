@@ -76,17 +76,7 @@ Resources:
       Architectures:
         - x86_64
       Role: !GetAtt LambdaExecutionRole.Arn
-      Events:
-        S3UploadEvent:
-          Type: S3
-          Properties:
-            Bucket: !Ref emrLambdaTrigger
-            Events: s3:ObjectCreated:*
-            Filter:
-              S3Key:
-                Rules:
-                  - Name: prefix
-                    Value: submissions/
+      
 
   # New EMRNotify Lambda function
   EMRNotify:
@@ -99,17 +89,7 @@ Resources:
       Architectures:
         - x86_64
       Role: !GetAtt LambdaExecutionRole.Arn
-      Events:
-        NotifyS3Event:
-          Type: S3
-          Properties:
-            Bucket: !Ref emrLambdaTrigger
-            Events: s3:ObjectCreated:*
-            Filter:
-              S3Key:
-                Rules:
-                  - Name: prefix
-                    Value: Notify/
+      
 
   # New EMRTerminate Lambda function
   EMRTerminate:
@@ -122,17 +102,7 @@ Resources:
       Architectures:
         - x86_64
       Role: !GetAtt LambdaExecutionRole.Arn
-      Events:
-        TerminationS3Event:
-          Type: S3
-          Properties:
-            Bucket: !Ref emrLambdaTrigger
-            Events: s3:ObjectCreated:*
-            Filter:
-              S3Key:
-                Rules:
-                  - Name: prefix
-                    Value: terminations/
+
 
   # New EMRRemainder Lambda function
   EMRRemainder:
@@ -145,17 +115,36 @@ Resources:
       Architectures:
         - x86_64
       Role: !GetAtt LambdaExecutionRole.Arn
-      Events:
-        Schedule:
-          Type: ScheduleV2
-          Properties:
-            ScheduleExpression: cron(0 0 1 * ? *)
-            Input: '{"hello": "simple"}'
+      
 
-  emrLambdaTrigger:
-    Type: AWS::S3::Bucket
+  EMRStateMachine: 
+    Type: AWS::Serverless::StateMachine
     Properties:
-      BucketName: !Sub "tech-tools-lambda-trigger-${Stage}"
+      Name: !Sub "emr-stateMachine-${Stage}"
+      DefinitionUri: emr/statemachine/statemachine.asl.json
+      DefinitionSubstitutions: 
+        EMRSpinUpArn: !GetAtt EMRSpinUp.Arn
+        EMRNotifynArn: !GetAtt EMRNotify.Arn
+        EMRTerminateArn: !GetAtt EMRTerminate.Arn
+        EMRRemainderArn: !GetAtt EMRRemainder.Arn 
+         
+      Policies: 
+        - LambdaInvokePolicy:
+            FunctionName: !Ref EMRSpinUp
+        - LambdaInvokePolicy: 
+            FunctionName: !Ref EMRNotify 
+        - LambdaInvokePolicy:
+            FunctionName: !Ref EMRTerminate
+        - LambdaInvokePolicy:
+            FunctionName: !Ref EMRRemainder
+      
+      Events:
+        MonthlyTrigger:
+          Type: EventBridgeRule
+          Properties:
+            Name: !Sub "emr-monthly-trigger-${Stage}"  # Sets the name of the EventBridge rule
+            Schedule: 'cron(0 0 1 * ? *)'              # Runs at midnight on the 1st of every month
+            Input: '{"TYPE": "remainder"}'
 
   BootstrapActionsBucket:
     Type: AWS::S3::Bucket
