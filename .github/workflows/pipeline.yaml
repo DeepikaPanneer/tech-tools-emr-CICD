@@ -260,8 +260,8 @@
 on:
   push:
     branches:
-      - staging 
-      - production 
+      - dev
+      - prod
 
 env: 
   STACK_NAME: sedt 
