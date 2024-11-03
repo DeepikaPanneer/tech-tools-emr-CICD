@@ -264,7 +264,7 @@ on:
       - prod
 
 env: 
-  STACK_NAME: sedt 
+  STACK_NAME: emr-tech-tools 
   IAM_ROLE: arn:aws:iam::286128020352:role/emr-tech-tool-role
   AWS_REGION: us-east-1
   BRANCH_NAME: ${{ github.ref_name }}
@@ -280,13 +280,13 @@ jobs:
       - uses: actions/checkout@v4
       # Specify staging stack and stage names 
       - name: Configure staging application
-        if: ${{ env.BRANCH_NAME == 'staging' }}
+        if: ${{ env.BRANCH_NAME == 'dev' }}
         run: |
           echo "STAGE=stg" >> $GITHUB_ENV
           echo "STACK_NAME=${STACK_NAME}-stg" >> $GITHUB_ENV
       # Specify production stack and stage names 
       - name: Configure production application
-        if: ${{ env.BRANCH_NAME == 'production' }}
+        if: ${{ env.BRANCH_NAME == 'prod' }}
         run: |
           echo "STAGE=prod" >> $GITHUB_ENV
           echo "STACK_NAME=${STACK_NAME}-prod" >> $GITHUB_ENV
