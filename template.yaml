@@ -148,7 +148,7 @@ Resources:
   BootstrapActionsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "bootstrap-actions-emr-1-${Stage}"
+      BucketName: !Sub "bootstrap-actions-emr-2-${Stage}"
 
   BootstrapActionsBucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -162,7 +162,7 @@ Resources:
               - "s3:GetObject"
               - "s3:PutObject"
             Resource: 
-              - !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
+              - !Sub "arn:aws:s3:::bootstrap-actions-emr-2-${Stage}/*"
             Principal:
               AWS: !Sub ${PipelineExecutionRole}
 
