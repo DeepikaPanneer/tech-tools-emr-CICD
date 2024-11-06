@@ -311,4 +311,4 @@ jobs:
         run: |
           sam deploy \
             --stack-name ${STACK_NAME} \
-            --parameter-overrides Stage=${STAGE} 
+            --parameter-overrides Stage=${STAGE}  PipelineExecutionRole=${{ env.IAM_ROLE }}
