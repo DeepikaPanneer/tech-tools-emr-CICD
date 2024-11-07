@@ -313,5 +313,5 @@ jobs:
             --stack-name ${STACK_NAME} \
             --parameter-overrides Stage=${STAGE}  PipelineExecutionRole=${{ env.IAM_ROLE }}
       - name: Upload file to S3
-          run: |
-            aws s3 cp emr-tech-tools/emr/bootstrapActions/bootstrap_scripts.sh s3://bootstrap-actions-emr-2-${{ github.ref_name }}/emr/
+        run: |
+          aws s3 cp emr-tech-tools/emr/bootstrapActions/bootstrap_scripts.sh s3://bootstrap-actions-emr-2-${{ github.ref_name }}/emr/
