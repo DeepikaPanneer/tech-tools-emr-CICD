@@ -70,7 +70,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "emr-spinup-${Stage}"
-      CodeUri: emr/EMRSpinUp
+      CodeUri: emr-tech-tools/emr/EMRSpinUp
       Handler: EMRSpinUp.lambda_handler
       Runtime: python3.9
       Architectures:
@@ -83,7 +83,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "emr-notify-${Stage}"
-      CodeUri: emr/EMRNotify
+      CodeUri: emr-tech-tools/emr/EMRNotify
       Handler: EMRNotify.lambda_handler
       Runtime: python3.9
       Architectures:
@@ -96,7 +96,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "emr-terminate-${Stage}"
-      CodeUri: emr/EMRTerminate
+      CodeUri: emr-tech-tools/emr/EMRTerminate
       Handler: EMRTerminate.lambda_handler
       Runtime: python3.9
       Architectures:
@@ -109,7 +109,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "emr-reminder-${Stage}"
-      CodeUri: emr/EMRRemainder
+      CodeUri: emr-tech-tools/emr/EMRRemainder
       Handler: EMRRemainder.lambda_handler
       Runtime: python3.9
       Architectures:
@@ -121,7 +121,7 @@ Resources:
     Type: AWS::Serverless::StateMachine
     Properties:
       Name: !Sub "emr-stateMachine-${Stage}"
-      DefinitionUri: emr/statemachine/statemachine.asl.json
+      DefinitionUri: emr-tech-tools/emr/statemachine/statemachine.asl.json
       DefinitionSubstitutions: 
         EMRSpinUpArn: !GetAtt EMRSpinUp.Arn
         EMRNotifynArn: !GetAtt EMRNotify.Arn
@@ -148,7 +148,7 @@ Resources:
   BootstrapActionsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "bootstrap-actions-emr-1-${Stage}"
+      BucketName: !Sub "bootstrap-actions-emr-2-${Stage}"
 
   BootstrapActionsBucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -162,7 +162,7 @@ Resources:
               - "s3:GetObject"
               - "s3:PutObject"
             Resource: 
-              - !Sub "arn:aws:s3:::bootstrap-actions-emr-1-${Stage}/*"
+              - !Sub "arn:aws:s3:::bootstrap-actions-emr-2-${Stage}/*"
             Principal:
               AWS: !Sub ${PipelineExecutionRole}
 

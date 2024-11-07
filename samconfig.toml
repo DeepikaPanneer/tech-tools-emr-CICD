@@ -1,0 +1,14 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "emr-dev"
+s3_bucket = "tech-tools-artifacts"
+s3_prefix = "emr-dev"
+region = "us-east-1" 
+confirm_changeset = false
+fail_on_empty_changeset = false
+capabilities = "CAPABILITY_NAMED_IAM"
+parameter_overrides = [
+  "Stage=dev"
+]
