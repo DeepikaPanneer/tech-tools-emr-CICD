@@ -315,3 +315,4 @@ jobs:
       - name: Upload file to S3
         run: |
           aws s3 cp emr-tech-tools/emr/bootstrapActions/bootstrap_scripts.sh s3://bootstrap-actions-emr-2-${{ github.ref_name }}/emr/
+          aws s3 cp emr-tech-tools/ec2/bootstrapActions/ s3://bootstrap-actions-emr-2-${{ github.ref_name }}/ec2/ --recursive
