@@ -263,7 +263,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub "ec2-reminder-${Stage}"
-      CodeUri: emr-tech-tools/emr/EC2Remainder
+      CodeUri: emr-tech-tools/ec2/EC2Remainder
       Handler: EC2Remainder.lambda_handler
       Runtime: python3.9
       Architectures:
