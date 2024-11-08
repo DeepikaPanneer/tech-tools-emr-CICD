@@ -159,6 +159,117 @@ Resources:
             Principal:
               AWS: !Sub ${PipelineExecutionRole}
 
+
+
+  EC2LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "ec2-lambda-execution-role-${Stage}" 
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: [lambda.amazonaws.com]
+          Action: 
+            - sts:AssumeRole
+      Path: /
+      Policies: 
+        - PolicyName: S3FullAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: s3:*
+                Resource: '*'
+        - PolicyName: EC2FullAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 'ec2:*'
+                Resource: '*'
+        - PolicyName: PassRolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: iam:PassRole
+                Resource: '*'
+        - PolicyName: AWSLambdaBasicExecutionRole
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+
+
+  EC2SpinUp:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "ec2-spinup-${Stage}"
+      CodeUri: emr-tech-tools/ec2/EC2Spinup
+      Handler: EC2Spinup.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Role: !GetAtt EC2LambdaExecutionRole.Arn
+      
+
+  # New EC2Notify Lambda function
+  EC2Notify:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "ec2-notify-${Stage}"
+      CodeUri: emr-tech-tools/ec2/EC2Notify
+      Handler: EC2Notify.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Role: !GetAtt EC2LambdaExecutionRole.Arn
+
+  
+  EC2NotifyWindows:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "ec2-notify-windows-${Stage}"
+      CodeUri: emr-tech-tools/ec2/EC2NotifyWindows
+      Handler: EC2NotifyWindows.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Role: !GetAtt EC2LambdaExecutionRole.Arn
+      
+
+  # New EC2Terminate Lambda function
+  EC2Terminate:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "ec2-terminate-${Stage}"
+      CodeUri: emr-tech-tools/ec2/EC2Terminate
+      Handler: EC2Terminate.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Role: !GetAtt EC2LambdaExecutionRole.Arn
+
+
+  # New EMRRemainder Lambda function
+  EC2Remainder:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "ec2-reminder-${Stage}"
+      CodeUri: emr-tech-tools/ec2/EC2Remainder
+      Handler: EC2Remainder.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Role: !GetAtt EC2LambdaExecutionRole.Arn
+
 Outputs:
   EMRSpinUp:
     Description: "EMRSpinUp Lambda Function ARN"
