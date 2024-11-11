@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "emr-dev"
+stack_name = "tech-tools-dev"
 s3_bucket = "tech-tools-artifacts"
-s3_prefix = "emr-dev"
+s3_prefix = "tech-tools-dev"
 region = "us-east-1" 
 confirm_changeset = false
 fail_on_empty_changeset = false

@@ -265,7 +265,7 @@ on:
       - prod
 
 env: 
-  STACK_NAME: emr 
+  STACK_NAME: tech-tools 
   IAM_ROLE: arn:aws:iam::286128020352:role/emr-tech-tool-role
   AWS_REGION: us-east-1
   BRANCH_NAME: ${{ github.ref_name }}
